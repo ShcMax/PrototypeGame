@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Maze
 {
-    public abstract class Baffs : MonoBehaviour
+    public interface IRotation
     {
-        private bool _isInteractable;
-
-
+        void Rotate(); // прототип метода
     }
 }

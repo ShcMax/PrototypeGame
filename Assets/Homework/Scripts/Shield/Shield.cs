@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private SphereCollider _sphereCollider;
+    private int healthShield = 50;
+    private float lifeTime = 10f;    // Start is called before the first frame update
+    private void Awake()
+    {
+        _sphereCollider = GetComponent<SphereCollider>();
+    }
     void Start()
     {
         

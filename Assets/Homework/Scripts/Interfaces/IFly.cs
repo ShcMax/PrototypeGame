@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Maze
 {
-    public abstract class Baffs : MonoBehaviour
+
+
+    public interface IFly
     {
-        private bool _isInteractable;
-
-
+        void Fly();
     }
 }

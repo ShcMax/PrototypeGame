@@ -2,36 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : PlayerManager
+namespace Maze
 {
-    private float speed;
-    private int health;
-    private float hor;
-    private float vert;
-    // Start is called before the first frame update
-    void Start()
+    public class Player : Unit
     {
-        speed = PlayerSpeed;
-        health = PlayerHealth;        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(health == 0)
+        public override void Awake()
         {
-            Destroy(gameObject);
-        }       
-    }
-    private void FixedUpdate()
-    {
-        Movement();
-    }
+            base.Awake();
+        }
 
-    public void Movement()
-    {
-        hor = Input.GetAxis("Horizontal");
-        vert = Input.GetAxis("Vertical");
-        transform.Translate(new Vector3(hor, 0, vert) * speed * Time.deltaTime);
+        public override void Move(float x, float y, float z)
+        {
+            if (_rigidbody)
+            {
+                _rigidbody.AddForce(new Vector3(x, y, z) * _speed);
+            }
+        }
+        //public override void Jump()
+        //{
+        //    if(_rigidbody && Input.GetKey(KeyCode.Space))
+        //    {
+        //        _rigidbody.AddForce(Vector3.up * _forceJump, ForceMode.Force);
+        //    }
+        //}
     }
 }
