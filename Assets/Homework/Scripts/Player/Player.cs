@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Maze
 {
-    public class Player : Unit
+    public class Player : Unit, ICloneable
     {
 
         public override void Awake()
@@ -18,6 +19,12 @@ namespace Maze
             {
                 _rigidbody.AddForce(new Vector3(x, y, z) * _speed);
             }
+        }
+
+        public object Clone()
+        {
+            Player player = new Player();
+            return player;
         }
         //public override void Jump()
         //{

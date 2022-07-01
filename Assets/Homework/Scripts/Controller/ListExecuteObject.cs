@@ -7,7 +7,6 @@ namespace Maze
 {
     public class ListExecuteObject : IEnumerable, IEnumerator
     {
-
         private IExecute[] _interactiveObject;
         private int _index = -1;
 
@@ -59,7 +58,7 @@ namespace Maze
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
+        }        
     }
     
 }
