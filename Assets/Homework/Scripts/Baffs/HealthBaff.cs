@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Maze
 {
-
-
     public class HealthBaff : Baffs, IFly, IRotation
     {
         private float _highFly;
