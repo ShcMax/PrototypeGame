@@ -8,11 +8,15 @@ namespace Maze
     public class Player : Unit
     {
 
+        delegate void Message();
+        Message _message;
+
         public override void Awake()
         {
             base.Awake();
-            Health = 100;
+            Health = 100;            
         }
+        
         public override void Move(float x, float y, float z)
         {
             if (_rigidbody)

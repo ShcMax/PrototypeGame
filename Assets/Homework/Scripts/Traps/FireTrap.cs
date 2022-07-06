@@ -11,7 +11,7 @@ namespace Maze
         public override void Awake()
         {
             base.Awake();
-            _heighFly = 5f;
+            _heighFly = 3f;
             _material = TrapsRenderer.material;
         }
 

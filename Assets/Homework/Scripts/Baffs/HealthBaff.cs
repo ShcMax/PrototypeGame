@@ -6,13 +6,14 @@ namespace Maze
 {
     public class HealthBaff : Baffs, IFly, IRotation
     {        
-        private float _speedRotation;
+        private float _speedRotation;     
+        
         // Start is called before the first frame update
         public override void Awake()
         {
             base.Awake();            
             _speedRotation = Random.Range(10, 20);
-            _heighFly = 5;
+            _heighFly = 2;
         }
 
         public void Fly()
