@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+namespace Maze
 {
-    public GameObject player;
-    public Vector3 offset;
-    // Start is called before the first frame update
-    void Start()
+    public class CameraController : IExecute
     {
-        offset = transform.position - player.transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Vector3 relat = player.transform.position - transform.position;
-        //Quaternion rot = Quaternion.LookRotation(relat);
-        //transform.rotation = rot;
-    }
-    private void LateUpdate()
-    {
-        transform.position = player.transform.position + offset;
-        
+        private Transform _player;
+        private Transform _camera;
+        private Vector3 _offset;
+        public CameraController(Transform player, Transform mainC)
+        {
+            _player = player;
+            _camera = mainC;
+            _offset = _camera.position - _player.position;
+            _camera.LookAt(_player);
+        }     
+       
+        public void Update()
+        {
+            //Vector3 relat = player.transform.position - transform.position;
+            //Quaternion rot = Quaternion.LookRotation(relat);
+            //transform.rotation = rot;
+            _camera.position = _player.position + _offset;
+        }        
     }
 }

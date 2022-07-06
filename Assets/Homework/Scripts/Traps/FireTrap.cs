@@ -4,34 +4,35 @@ using UnityEngine;
 
 namespace Maze
 {
-    public class FireTrap : Traps, IRotation, IFlick
+    public class FireTrap : Traps, IFlick, IFly
     {
-        private float _speedRotation;
-        // Start is called before the first frame update
+        private Material _material;
 
-        private void Awake()
+        public override void Awake()
         {
-            _speedRotation = Random.Range(20, 50);
-        }
-        void Start()
-        {
-            
+            base.Awake();
+            _heighFly = 5f;
+            _material = TrapsRenderer.material;
         }
 
-        public void  Rotate()
+        public void Fly()
         {
-            transform.Rotate(Vector3.up * (Time.deltaTime * _speedRotation), Space.World);
+            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, _heighFly), transform.position.z);
         }
 
         public void Flick()
         {
-
+            _material.color = new Color(_material.color.r, _material.color.g, _material.color.b, Mathf.PingPong(Time.time, 1.0f));
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void Update()
         {
-
+            Fly();
+            Flick();
+        }
+        public override void Interaction()
+        {
+            
         }
     }
 }

@@ -10,9 +10,30 @@ namespace Maze
         public Transform _transform;
         public Rigidbody _rigidbody;
         public float _speed = 5f;
-        public int _health = 100;
+        private int health = 100;
         public bool _isDead;
         public float _forceJump;
+
+        public int Health 
+        {
+            get 
+            {
+                return health;
+            }
+
+            set 
+            { 
+                if(health < 100 && health > -1)
+                {
+                    health = value;
+                }
+                else
+                {
+                    health = 100;
+                }
+            } 
+        }
+
         // Start is called before the first frame update
         public virtual void Awake()
         {

@@ -5,19 +5,19 @@ using UnityEngine;
 namespace Maze
 {
     public class HealthBaff : Baffs, IFly, IRotation
-    {
-        private float _highFly;
+    {        
         private float _speedRotation;
         // Start is called before the first frame update
-        private void Awake()
+        public override void Awake()
         {
-            _highFly = Random.Range(1, 5);
+            base.Awake();            
             _speedRotation = Random.Range(10, 20);
+            _heighFly = 5;
         }
 
         public void Fly()
         {
-            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, _highFly), transform.position.z);
+            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time, _heighFly), transform.position.z);
         }
 
         public void Rotate()
@@ -30,10 +30,15 @@ namespace Maze
         }
 
         // Update is called once per frame
-        void Update()
+        public override void Update()
         {
             Fly();
             Rotate();
         }
+
+        public override void Interaction()
+        {
+
+        }        
     }
 }
