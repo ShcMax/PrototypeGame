@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace Maze
@@ -7,6 +8,7 @@ namespace Maze
     public class FireTrap : Traps, IFlick, IFly
     {
         private Material _material;
+        public event Action<string, Color> OnGameOver = delegate (string str, Color color) { };
 
         public override void Awake()
         {
@@ -30,9 +32,9 @@ namespace Maze
             Fly();
             Flick();
         }
-        public override void Interaction()
+        protected override void Interaction()
         {
-            
+            OnGameOver?.Invoke(gameObject.name, _color);
         }
     }
 }

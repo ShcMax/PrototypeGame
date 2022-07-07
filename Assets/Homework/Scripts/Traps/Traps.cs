@@ -7,7 +7,7 @@ namespace Maze
     public abstract class Traps : MonoBehaviour, IExecute
     {
         private bool _isInteractable;
-        private Color _color;
+        protected private Color _color;
         private Renderer _renderer;
         private Collider _collider;
         public float _heighFly;
@@ -50,7 +50,7 @@ namespace Maze
             }
         }
 
-        public abstract void Interaction();
+        protected abstract void Interaction();
         public abstract void Update();
     }
 }

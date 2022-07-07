@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 namespace Maze
 {
     public class HealthBaff : Baffs, IFly, IRotation
-    {        
+    {
+        public event Action<int> AddPoints = delegate (int i) { };
+        private int _point;
         private float _speedRotation;     
         
         // Start is called before the first frame update
@@ -14,6 +18,7 @@ namespace Maze
             base.Awake();            
             _speedRotation = Random.Range(10, 20);
             _heighFly = 2;
+            _point = 1;
         }
 
         public void Fly()
@@ -37,9 +42,9 @@ namespace Maze
             Rotate();
         }
 
-        public override void Interaction()
+        protected override void Interaction()
         {
-
+            AddPoints?.Invoke(_point);
         }        
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Object = UnityEngine.Object;
 
 namespace Maze
 {
@@ -22,7 +23,23 @@ namespace Maze
 
         public ListExecuteObject()
         {
+            Traps[] TrapsObj = Object.FindObjectsOfType<Traps>();
+            for(int i = 0; i < TrapsObj.Length; i++)
+            {
+                if(TrapsObj[i] is IExecute intObject)
+                {
+                    AddExecuteObject(intObject);
+                }
+            }
 
+            Baffs[] BaffsObj = Object.FindObjectsOfType<Baffs>();
+            for(int i = 0; i < BaffsObj.Length; i++)
+            {
+                if(BaffsObj[i] is IExecute intObject)
+                {
+                    AddExecuteObject(intObject);
+                }
+            }
         }
 
         public void AddExecuteObject(IExecute execute)

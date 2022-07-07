@@ -43,7 +43,7 @@ namespace Maze
             }
         }
 
-        public abstract void Interaction();
+        protected abstract void Interaction();
         public abstract void Update();        
     }
 }
