@@ -8,7 +8,9 @@ namespace Maze
 {
     public class HealthBaff : Baffs, IFly, IRotation
     {
+        public event Action<string> Fin = delegate (string str) { };
         public event Action<int> AddPoints = delegate (int i) { };
+        private string _str;
         private int _point;
         private float _speedRotation;     
         
@@ -18,7 +20,7 @@ namespace Maze
             base.Awake();            
             _speedRotation = Random.Range(10, 20);
             _heighFly = 2;
-            _point = 1;
+            _point = 1;            
         }
 
         public void Fly()
@@ -29,11 +31,7 @@ namespace Maze
         public void Rotate()
         {
             transform.Rotate(Vector3.up * (Time.deltaTime * _speedRotation), Space.World);
-        }
-        void Start()
-        {
-
-        }
+        }       
 
         // Update is called once per frame
         public override void Update()
@@ -45,6 +43,7 @@ namespace Maze
         protected override void Interaction()
         {
             AddPoints?.Invoke(_point);
+            Fin?.Invoke(_str);
         }        
     }
 }

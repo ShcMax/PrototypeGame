@@ -13,13 +13,15 @@ namespace Maze
         private UIDisplayGameOver _displayGameOver;
         [SerializeField] private Text _gameOver;
         [SerializeField] private Button _restartButton;
+        private UIDisplayWinGame _displayWinGame;
+        [SerializeField] private Text _winLabel;
 
         private CameraController _camera;
         private ListExecuteObject _interactiveObject;
         private InputController _InputController;              
         [SerializeField] private Unit _player;
 
-        private int _bonusCount;
+        private int _bonusCount;        
 
         
         private void Awake()
@@ -36,10 +38,10 @@ namespace Maze
 
             _displayBonus = new UIDisplayBonus(_pointLabel);
             _displayGameOver = new UIDisplayGameOver(_gameOver);
+            _displayWinGame = new UIDisplayWinGame(_winLabel);
 
             _restartButton.onClick.AddListener(RestartGame);
             _restartButton.gameObject.SetActive(false);
-            
 
 
             foreach(var item in _interactiveObject)
@@ -52,6 +54,10 @@ namespace Maze
                 if(item is HealthBaff healthBaff)
                 {
                     healthBaff.AddPoints += AddPoint;
+                }
+                if(item is HealthBaff healthBaff1)
+                {
+                    healthBaff1.Fin += WinGame;
                 }
             }
         }
@@ -71,6 +77,13 @@ namespace Maze
         private void RestartGame()
         {
             SceneManager.LoadScene(0);            
+        }
+
+        private void WinGame(string win)
+        {
+            _displayWinGame.DisplayWin("Win");
+            _restartButton.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
 
         void Update()
