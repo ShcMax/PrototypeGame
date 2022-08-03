@@ -24,14 +24,16 @@ namespace Maze
             }             
         }
 
+        public Color Color { get => _color; set => _color = value; }
+
         public virtual void Awake()
         {            
             _renderer = GetComponent<Renderer>();
             _collider = GetComponent<Collider>();
             IsInteractable = true;
-            _color = Random.ColorHSV();
+            Color = Random.ColorHSV();
 
-            _renderer.sharedMaterial.color = _color;
+            _renderer.sharedMaterial.color = Color;
         }
 
         private void OnTriggerEnter(Collider other)
