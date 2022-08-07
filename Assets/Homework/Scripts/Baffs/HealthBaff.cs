@@ -6,23 +6,10 @@ using Random = UnityEngine.Random;
 
 namespace Maze
 {
-    public struct PlayerData
-    {
-        public string Name;
-        public Vector3 Position;
-        public Quaternion Rotation;        
-
-        public PlayerData (HealthBaff healthBaff)
-        {
-            Name = healthBaff.name;
-            Position = healthBaff.transform.position;
-            Rotation = healthBaff.transform.rotation;            
-        }
-
-    }
+    
     public class HealthBaff : Baffs, IFly, IRotation
     {
-        public PlayerData _healthData;
+        //public PlayerData _healthData;
         private ISaveData _data;
 
         public event Action<string> Fin = delegate (string str) { };
@@ -37,18 +24,7 @@ namespace Maze
             base.Awake();            
             _speedRotation = Random.Range(10, 20);
             _heighFly = 2;
-            _point = 1;
-
-            _data = new JSonData();
-            _healthData = new PlayerData(this);
-            _data.SaveData(_healthData);
-
-            PlayerData temp = new PlayerData();
-            temp = _data.Load();
-
-            Debug.Log(temp.Name);
-            Debug.Log(temp.Position);
-            Debug.Log(temp.Rotation);
+            _point = 1;            
         }
 
         public void Fly()
