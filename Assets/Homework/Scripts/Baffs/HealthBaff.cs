@@ -20,6 +20,8 @@ namespace Maze
         private int _point;
         private float _speedRotation;
 
+        private GetBonus _getBonus;
+
         public sealed class GetBonus
         {
             private int _pointBonus = 1;
@@ -40,10 +42,13 @@ namespace Maze
         // Start is called before the first frame update
         public override void Awake()
         {
-            base.Awake();            
-            SpeedRotation = Random.Range(10, 20);
+            base.Awake();
+
+            _getBonus = new GetBonus();
+
+            SpeedRotation = _getBonus.SpeedBonus;
             _heighFly = 2;
-            Point = 1;
+            Point = _getBonus.PointBonus;
         }               
 
         public void Fly()
@@ -57,8 +62,7 @@ namespace Maze
         }    
 
         public void GetBaff()
-        {
-            HealthBaff health = new HealthBaff();
+        {            
             GetBonus get = new GetBonus();
             (int pointBonus, float speedBonus) bonus = (get.PointBonus, get.SpeedBonus);
             Debug.Log($" получено очков {bonus.pointBonus} / скорость вращения бонуса {bonus.speedBonus}");
