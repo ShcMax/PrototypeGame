@@ -44,10 +44,10 @@ namespace Maze
             PlayerData temp = new PlayerData();
             temp = _data.Load();
 
-            Debug.Log(temp.Health);
-            Debug.Log(temp.Position);
-            Debug.Log(temp.Rotation);
-            Debug.Log(temp.PlayerDead);
+            //Debug.Log(temp.Health);
+            //Debug.Log(temp.Position);
+            //Debug.Log(temp.Rotation);
+            //Debug.Log(temp.PlayerDead);
         }
         
         public override void Move(float x, float y, float z)

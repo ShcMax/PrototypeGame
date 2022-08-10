@@ -10,22 +10,41 @@ namespace Maze
     public class HealthBaff : Baffs, IFly, IRotation
     {
         //public PlayerData _healthData;
-        private ISaveData _data;
+        //private ISaveData _data;
 
         public event Action<string> Fin = delegate (string str) { };
         public event Action<int> AddPoints = delegate (int i) { };
-        private string _str;
-        private int _point;
-        private float _speedRotation;     
+
+        private string _str;        
         
+        private int _point;
+        private float _speedRotation;
+
+        public sealed class GetBonus
+        {
+            private int _pointBonus = 1;
+            private float _speedBonus = Random.Range(10, 20);
+
+            public int PointBonus { get => _pointBonus; set => _pointBonus = value; }
+            public float SpeedBonus { get => _speedBonus; set => _speedBonus = value; }
+
+            public (int pointBonus, float speedBonus) Get()
+            {
+                return (PointBonus, SpeedBonus);
+            } 
+        }       
+
+        public int Point { get => _point; set => _point = Point; }
+        public float SpeedRotation { get => _speedRotation; set => _speedRotation = SpeedRotation; }
+
         // Start is called before the first frame update
         public override void Awake()
         {
             base.Awake();            
-            _speedRotation = Random.Range(10, 20);
+            SpeedRotation = Random.Range(10, 20);
             _heighFly = 2;
-            _point = 1;            
-        }
+            Point = 1;
+        }               
 
         public void Fly()
         {
@@ -34,8 +53,18 @@ namespace Maze
 
         public void Rotate()
         {
-            transform.Rotate(Vector3.up * (Time.deltaTime * _speedRotation), Space.World);
-        }       
+            transform.Rotate(Vector3.up * (Time.deltaTime * SpeedRotation), Space.World);
+        }    
+
+        public void GetBaff()
+        {
+            HealthBaff health = new HealthBaff();
+            GetBonus get = new GetBonus();
+            (int pointBonus, float speedBonus) bonus = (get.PointBonus, get.SpeedBonus);
+            Debug.Log($" получено очков {bonus.pointBonus} / скорость вращения бонуса {bonus.speedBonus}");
+        }
+        
+        
 
         // Update is called once per frame
         public override void Update()
@@ -46,7 +75,7 @@ namespace Maze
 
         protected override void Interaction()
         {
-            AddPoints?.Invoke(_point);
+            AddPoints?.Invoke(Point);
             Fin?.Invoke(_str);
         }        
     }
