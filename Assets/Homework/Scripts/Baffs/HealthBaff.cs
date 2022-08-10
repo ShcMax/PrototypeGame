@@ -14,7 +14,6 @@ namespace Maze
 
         public event Action<string> Fin = delegate (string str) { };
         public event Action<int> AddPoints = delegate (int i) { };
-
         private string _str;        
         
         private int _point;
@@ -39,16 +38,53 @@ namespace Maze
         public int Point { get => _point; set => _point = Point; }
         public float SpeedRotation { get => _speedRotation; set => _speedRotation = SpeedRotation; }
 
+
+        #region ковариантный и контрвариантный делегат
+
+        delegate Info UI(InfoCon _info);
+        public class Info
+        {
+            public string name = "1";
+        }
+
+        public class InfoCon: Info
+        {
+            public string lastName = "2";
+        }
+
+        public class InfoNameAndLastName
+        {
+            public static Info UIInfo(Info inf)
+            {
+                inf.name = "/" + inf.name;                
+                return inf;                
+            }
+
+            public static InfoCon UIinfoCon(InfoCon inf)
+            {
+                inf.lastName = "/" + inf.lastName + "/" + inf.name;                
+                return inf;
+            }
+        }
+
+        #endregion
+
         // Start is called before the first frame update
         public override void Awake()
         {
             base.Awake();
 
             _getBonus = new GetBonus();
-
             SpeedRotation = _getBonus.SpeedBonus;
             _heighFly = 2;
             Point = _getBonus.PointBonus;
+
+            UI cov = InfoNameAndLastName.UIinfoCon;
+            Debug.Log(cov);
+
+            cov = InfoNameAndLastName.UIInfo;
+            Debug.Log(cov);
+
         }               
 
         public void Fly()
@@ -65,10 +101,8 @@ namespace Maze
         {            
             GetBonus get = new GetBonus();
             (int pointBonus, float speedBonus) bonus = (get.PointBonus, get.SpeedBonus);
-            Debug.Log($" получено очков {bonus.pointBonus} / скорость вращения бонуса {bonus.speedBonus}");
+            Debug.Log($" получено очков {bonus.pointBonus} / скорость вращения бонуса {bonus.speedBonus}");            
         }
-        
-        
 
         // Update is called once per frame
         public override void Update()

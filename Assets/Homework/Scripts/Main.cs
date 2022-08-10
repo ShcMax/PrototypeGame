@@ -86,8 +86,7 @@ namespace Maze
             _displayWinGame.DisplayWin("Win");
             _restartButton.gameObject.SetActive(true);
             Time.timeScale = 0;
-        }
-                
+        }                
 
         void Update()
         {
