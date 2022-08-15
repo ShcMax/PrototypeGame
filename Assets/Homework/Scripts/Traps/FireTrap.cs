@@ -8,13 +8,14 @@ namespace Maze
     public class FireTrap : Traps, IFlick, IFly
     {
         private Material _material;
-        public event Action<string, Color> OnGameOver = delegate (string str, Color color) { };
+        public event Action<string, Color> OnGameOver = delegate (string str, Color color) { };        
 
         public override void Awake()
         {
             base.Awake();
             _heighFly = 3f;
             _material = TrapsRenderer.material;
+           
         }
 
         public void Fly()
